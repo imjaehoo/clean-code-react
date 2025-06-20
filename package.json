@@ -1,0 +1,46 @@
+{
+  "name": "clean-react",
+  "version": "0.1.0",
+  "description": "MCP server providing systematic code quality guidance for AI coding assistants",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "clean-react": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:imports": "prettier --write \"src/**/*.ts\" --plugin=@trivago/prettier-plugin-sort-imports",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "react",
+    "nextjs",
+    "best-practices",
+    "code-quality"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/inspector": "^0.14.3",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/node": "^24.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "eslint": "^9.29.0",
+    "globals": "^16.2.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
