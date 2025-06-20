@@ -1,45 +1,83 @@
 # Clean React MCP Server
 
-A Model Context Protocol (MCP) server that provides systematic code quality guidance for React and Next.js developers.
+A Model Context Protocol (MCP) server that provides comprehensive React and TypeScript pattern guidance for AI coding assistants.
+Discover proven patterns, see bad vs good examples, and learn when to apply each pattern.
 
 ## Overview
 
-Clean React helps developers write better React/Next.js code by providing:
+Clean React helps developers write better React/TypeScript code by providing:
 
-- A comprehensive quality checklist for code review
-- Pattern-based solutions for common issues
-- Best practices guidance with real examples
-
-## Installation
-
-```bash
-npm install -g clean-react
-```
+- **Essential Patterns**: From basic Container/Presentational to advanced Builder and Factory patterns
+- **Bad vs Good Examples**: Compare problematic code with improved solutions
+- **Detailed Guidance**: Comprehensive descriptions, use cases, and best practices
+- **Pattern Discovery**: Get an overview of all patterns or dive deep into specific ones
 
 ## Usage
 
-### Configure with Claude Desktop
-
-Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+### Typical Configuration
 
 ```json
 {
   "mcpServers": {
     "clean-react": {
-      "command": "clean-react"
+      "command": "npx",
+      "args": ["clean-react@latest"]
     }
   }
 }
 ```
 
-### Available Tools
+### Cursor
 
-1. **`get_quality_checklist`** - Get a comprehensive quality checklist for React/Next.js components
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=clean-react&config=eyJjb21tYW5kIjoibnB4IGNsZWFuLXJlYWN0QGxhdGVzdCJ9)
 
-   - Optional: Filter by category (Component Structure, State Management, etc.)
+### Claude Code
 
-2. **`fix_component_structure`** - Get patterns for fixing component structure issues
-   - Handles large components, multiple responsibilities, poor organization
+```bash
+claude mcp add clean-react npx clean-react@latest
+```
+
+### VS Code
+
+```bash
+code --add-mcp '{"name":"clean-react","command":"npx","args":["clean-react@latest"]}'
+```
+
+## Available Tools
+
+### Pattern Discovery
+
+- **`get_patterns`** - Get an overview of all 11 available patterns with descriptions and use cases
+
+### React Patterns
+
+- **`get_container_presentational_pattern`** - Separate data logic from presentation
+- **`get_render_props_pattern`** - Share code between components using render props
+- **`get_compound_component_pattern`** - Create flexible, composable component APIs
+- **`get_higher_order_component_pattern`** - Enhance components with additional functionality
+
+### Architecture Patterns
+
+- **`get_dependency_injection_pattern`** - Manage dependencies and improve testability
+- **`get_service_layer_pattern`** - Organize business logic and external integrations
+- **`get_adapter_pattern`** - Bridge incompatible interfaces
+
+### Code Quality Patterns
+
+- **`get_declarative_programming_pattern`** - Write more readable, maintainable code
+- **`get_prop_drilling_solutions_pattern`** - Solve prop drilling with modern techniques
+
+### Design Patterns
+
+- **`get_builder_pattern`** - Construct complex objects step by step
+- **`get_factory_pattern`** - Create objects without specifying exact classes
+
+Each pattern tool provides:
+
+- Comprehensive description and use cases
+- Bad vs good code examples
+- Best practices and common mistakes
+- Related patterns and further reading
 
 ## Development
 
@@ -80,13 +118,15 @@ This opens a web interface where you can:
 
 ## Architecture
 
-The server follows a clean architecture pattern:
-
-- `src/tools/` - MCP tool implementations with colocated pattern data
-- `src/types/` - TypeScript type definitions
-- `src/utils/` - MCP adapters and utilities
-- `src/server.ts` - Core server setup
-- `src/index.ts` - Entry point with stdio transport
+```text
+src/
+├── adapters/        # MCP protocol adapters and type safety wrappers
+├── patterns/        # Pattern definitions with colocated data
+├── tools/           # MCP tool implementations
+├── types/           # TypeScript type definitions
+├── server.ts        # Core server setup with all tools
+└── index.ts         # Entry point with stdio transport
+```
 
 ## Contributing
 
@@ -95,7 +135,9 @@ Contributions are welcome! Please:
 1. Fork the repository
 2. Create a feature branch
 3. Add tests for new functionality
-4. Submit a pull request
+4. Ensure all patterns have bad/good examples
+5. Update pattern descriptions and use cases
+6. Submit a pull request
 
 ## License
 

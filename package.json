@@ -22,8 +22,19 @@
     "react",
     "nextjs",
     "best-practices",
-    "code-quality"
+    "code-quality",
+    "typescript",
+    "patterns",
+    "model-context-protocol"
   ],
+  "homepage": "https://github.com/imjaehoo/clean-react#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imjaehoo/clean-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/imjaehoo/clean-react/issues"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"

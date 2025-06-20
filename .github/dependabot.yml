@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+    open-pull-requests-limit: 10
+    reviewers:
+      - 'imjaehoo'
+    assignees:
+      - 'imjaehoo'
+    commit-message:
+      prefix: 'deps'
+      include: 'scope'
+    groups:
+      typescript:
+        patterns:
+          - 'typescript'
+          - '@types/*'
+          - '@typescript-eslint/*'
+      eslint:
+        patterns:
+          - 'eslint*'
+          - '@eslint/*'
+      mcp:
+        patterns:
+          - '@modelcontextprotocol/*'
