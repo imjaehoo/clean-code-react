@@ -46,8 +46,8 @@ jobs:
             ## Installation
 
             ```bash
-            git clone https://github.com/imjaehoo/clean-react.git
-            cd clean-react
+            git clone https://github.com/imjaehoo/clean-code-react.git
+            cd clean-code-react
             npm install
             npm run build
             ```

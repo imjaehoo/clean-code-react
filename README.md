@@ -1,11 +1,11 @@
-# Clean React MCP Server
+# Clean Code React MCP Server
 
 A Model Context Protocol (MCP) server that provides comprehensive React and TypeScript pattern guidance for AI coding assistants.
 Discover proven patterns, see bad vs good examples, and learn when to apply each pattern.
 
 ## Overview
 
-Clean React helps developers write better React/TypeScript code by providing:
+Clean Code React helps developers write better React/TypeScript code by providing:
 
 - **Essential Patterns**: From basic Container/Presentational to advanced Builder and Factory patterns
 - **Bad vs Good Examples**: Compare problematic code with improved solutions
@@ -19,9 +19,9 @@ Clean React helps developers write better React/TypeScript code by providing:
 ```json
 {
   "mcpServers": {
-    "clean-react": {
+    "clean-code-react": {
       "command": "npx",
-      "args": ["clean-react@latest"]
+      "args": ["clean-code-react@latest"]
     }
   }
 }
@@ -29,18 +29,18 @@ Clean React helps developers write better React/TypeScript code by providing:
 
 ### Cursor
 
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=clean-react&config=eyJjb21tYW5kIjoibnB4IGNsZWFuLXJlYWN0QGxhdGVzdCJ9)
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=clean-code-react&config=eyJjb21tYW5kIjoibnB4IGNsZWFuLWNvZGUtcmVhY3RAbGF0ZXN0In0%3D)
 
 ### Claude Code
 
 ```bash
-claude mcp add clean-react npx clean-react@latest
+claude mcp add clean-code-react npx clean-code-react@latest
 ```
 
 ### VS Code
 
 ```bash
-code --add-mcp '{"name":"clean-react","command":"npx","args":["clean-react@latest"]}'
+code --add-mcp '{"name":"clean-code-react","command":"npx","args":["clean-code-react@latest"]}'
 ```
 
 ## Available Tools
