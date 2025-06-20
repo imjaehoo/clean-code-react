@@ -13,6 +13,7 @@ import { higherOrderComponentPattern } from './higher-order-component.js';
 import { propDrillingSolutionsPattern } from './prop-drilling-solutions.js';
 import { renderPropsPattern } from './render-props.js';
 import { serviceLayerPattern } from './service-layer.js';
+import { strategyPattern } from './strategy-pattern.js';
 
 /**
  * Central pattern registry - single source of truth
@@ -29,6 +30,7 @@ export const PATTERN_REGISTRY: Record<string, PatternDefinition> = {
   'prop-drilling-solutions': propDrillingSolutionsPattern,
   'builder-pattern': builderPattern,
   'factory-pattern': factoryPattern,
+  'strategy-pattern': strategyPattern,
 };
 
 /**
