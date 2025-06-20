@@ -32,9 +32,14 @@ export const builderPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: 'Bad: Complex Constructor Parameters',
-        description: 'Hard-to-use constructors with many optional parameters',
-        code: `// ❌ BAD: Complex constructors and configuration objects
+        title: 'Complex Object Construction',
+        description:
+          'Comparing complex constructor patterns with builder pattern for better readability and maintainability',
+        comparison: {
+          bad: {
+            title: 'Complex Constructor Parameters',
+            description: 'Hard-to-use constructors with many optional parameters',
+            code: `// ❌ BAD: Complex constructors and configuration objects
 interface FormFieldConfig {
   name: string;
   label?: string;
@@ -128,11 +133,11 @@ const userQuery = {
   cache: true,
   transform: (data) => data.users,
 };`,
-      },
-      {
-        title: 'Good: Builder Pattern Implementation',
-        description: 'Fluent builders for readable and type-safe object construction',
-        code: `// ✅ GOOD: Builder pattern for complex configurations
+          },
+          good: {
+            title: 'Builder Pattern Implementation',
+            description: 'Fluent builders for readable and type-safe object construction',
+            code: `// ✅ GOOD: Builder pattern for complex configurations
 
 // Form Field Builder
 class FormFieldBuilder {
@@ -369,6 +374,8 @@ function FormExample() {
     </form>
   );
 }`,
+          },
+        },
       },
     ],
     bestPractices: [

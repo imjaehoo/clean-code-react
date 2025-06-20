@@ -32,9 +32,13 @@ export const declarativeProgrammingPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: 'Bad: Imperative Conditional Logic',
-        description: 'Complex nested conditions making component logic hard to follow',
-        code: `// ❌ BAD: Imperative conditional rendering
+        title: 'Conditional Rendering Patterns',
+        description: 'Comparing imperative conditional logic with declarative component patterns',
+        comparison: {
+          bad: {
+            title: 'Imperative Conditional Logic',
+            description: 'Complex nested conditions making component logic hard to follow',
+            code: `// ❌ BAD: Imperative conditional rendering
 function UserProfile({ userId }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -114,12 +118,12 @@ function UserProfile({ userId }) {
     </div>
   );
 }`,
-      },
-      {
-        title: 'Good: Declarative with Components',
-        description:
-          'Clean declarative approach using Suspense, ErrorBoundary, and conditional components',
-        code: `// ✅ GOOD: Declarative conditional rendering
+          },
+          good: {
+            title: 'Declarative with Components',
+            description:
+              'Clean declarative approach using Suspense, ErrorBoundary, and conditional components',
+            code: `// ✅ GOOD: Declarative conditional rendering
 function UserProfile({ userId }) {
   return (
     <ErrorBoundary fallback={<ErrorDisplay />}>
@@ -213,11 +217,17 @@ function AccessDenied() {
     </div>
   );
 }`,
+          },
+        },
       },
       {
-        title: 'Bad: Imperative Event Handling & State',
-        description: 'Manual event handling and imperative state updates',
-        code: `// ❌ BAD: Imperative approach to form handling
+        title: 'Event Handling and State Management',
+        description: 'Comparing imperative event handling with declarative state flow patterns',
+        comparison: {
+          bad: {
+            title: 'Imperative Event Handling & State',
+            description: 'Manual event handling and imperative state updates',
+            code: `// ❌ BAD: Imperative approach to form handling
 function SearchForm() {
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState({});
@@ -310,11 +320,11 @@ function SearchForm() {
     </form>
   );
 }`,
-      },
-      {
-        title: 'Good: Declarative State & Event Flow',
-        description: 'Declarative approach using derived state and clean data flow',
-        code: `// ✅ GOOD: Declarative approach with clear data flow
+          },
+          good: {
+            title: 'Declarative State & Event Flow',
+            description: 'Declarative approach using derived state and clean data flow',
+            code: `// ✅ GOOD: Declarative approach with clear data flow
 function SearchForm() {
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState({});
@@ -445,27 +455,29 @@ function SearchResults({ results, isLoading, error, onRetry }) {
     </div>
   );
 }`,
+          },
+        },
       },
     ],
     bestPractices: [
-      'Use Suspense and ErrorBoundary for loading and error states',
-      'Prefer derived state over manual state synchronization',
-      'Create small, focused components that express single concepts',
-      'Use meaningful component and prop names that describe intent',
-      'Leverage custom hooks to encapsulate complex logic declaratively',
-      'Use data fetching libraries that handle loading/error states',
-      'Prefer functional programming patterns over imperative loops',
-      'Express validation and business rules as pure functions',
+      'Express "what" should happen, not "how" it should happen',
+      'Use data transformations instead of step-by-step mutations',
+      'Prefer pure functions that return new values over procedures that modify state',
+      'Model state as immutable data structures that represent current reality',
+      'Use functional composition to build complex logic from simple pieces',
+      'Express business rules as declarative predicates and transformations',
+      'Design APIs that describe desired outcomes rather than implementation steps',
+      'Use descriptive names that communicate intent rather than implementation details',
     ],
     commonMistakes: [
-      'Manual DOM manipulation instead of letting React manage the DOM',
-      'Imperative event handling with complex side effect chains',
-      'Not using derived state for computed values',
-      'Mixing imperative and declarative approaches in the same component',
-      'Overusing refs and direct DOM access',
-      'Creating large components that handle multiple concerns imperatively',
-      'Manual error handling instead of using ErrorBoundary',
-      'Not leveraging React Query or SWR for declarative data fetching',
+      'Writing step-by-step procedures instead of describing desired end states',
+      'Mutating existing data structures instead of creating new ones',
+      'Using imperative loops (for, while) when functional methods would be clearer',
+      'Mixing declarative and imperative approaches in the same abstraction level',
+      'Creating APIs that expose implementation details rather than intent',
+      'Building complex logic with nested conditions instead of composable functions',
+      'Manually orchestrating sequences of operations instead of describing dependencies',
+      'Focusing on "how to change" rather than "what the result should be"',
     ],
     relatedPatterns: ['container-presentational', 'compound-component'],
   },

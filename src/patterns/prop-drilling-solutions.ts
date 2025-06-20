@@ -32,9 +32,14 @@ export const propDrillingSolutionsPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: 'Bad: Deep Prop Drilling',
-        description: "Props passed through components that don't need them",
-        code: `// ❌ BAD: Props drilled through multiple levels
+        title: 'Prop Drilling vs Context Solutions',
+        description:
+          'Comparing prop drilling problems with appropriate solutions like Context, composition, and state co-location',
+        comparison: {
+          bad: {
+            title: 'Deep Prop Drilling',
+            description: "Props passed through components that don't need them",
+            code: `// ❌ BAD: Props drilled through multiple levels
 function App() {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState('light');
@@ -119,11 +124,11 @@ function Content({ notifications, onNotificationDismiss }) {
     </div>
   );
 }`,
-      },
-      {
-        title: 'Good: Multiple Solutions Applied',
-        description: 'Using the right pattern for each data sharing need',
-        code: `// ✅ GOOD: Multiple solutions based on use case
+          },
+          good: {
+            title: 'Multiple Solutions Applied',
+            description: 'Using the right pattern for each data sharing need',
+            code: `// ✅ GOOD: Multiple solutions based on use case
 
 // 1. Context for truly global/app-wide state
 const UserContext = createContext(null);
@@ -270,6 +275,8 @@ function AnotherComponent() {
     </div>
   );
 }`,
+          },
+        },
       },
     ],
     bestPractices: [

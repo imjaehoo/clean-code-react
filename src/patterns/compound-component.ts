@@ -28,9 +28,13 @@ export const compoundComponentPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: '❌ BAD: Tightly Coupled Accordion',
-        description: 'Accordion with hardcoded structure and poor reusability',
-        code: `// ❌ BAD: Monolithic component with hardcoded structure
+        title: 'Accordion Implementation',
+        description: 'Comparing tightly coupled accordion vs flexible compound component pattern',
+        comparison: {
+          bad: {
+            title: 'Tightly Coupled Accordion',
+            description: 'Accordion with hardcoded structure and poor reusability',
+            code: `// ❌ BAD: Monolithic component with hardcoded structure
 function BadAccordion({ items }) {
   const [openItems, setOpenItems] = useState(new Set());
   
@@ -87,11 +91,11 @@ function App() {
 // - Can't control individual item behavior
 // - Can't nest other components easily
 // - Hard to extend with new features`,
-      },
-      {
-        title: '✅ GOOD: Flexible Compound Component',
-        description: 'Accordion using compound component pattern for maximum flexibility',
-        code: `// ✅ GOOD: Flexible compound component pattern
+          },
+          good: {
+            title: 'Flexible Compound Component',
+            description: 'Accordion using compound component pattern for maximum flexibility',
+            code: `// ✅ GOOD: Flexible compound component pattern
 const AccordionContext = createContext();
 
 function Accordion({ children, defaultOpen = [], allowMultiple = true }) {
@@ -193,6 +197,8 @@ function App() {
 // - Easy to extend with new features
 // - Flexible styling options
 // - Clear component relationships`,
+          },
+        },
       },
     ],
     bestPractices: [

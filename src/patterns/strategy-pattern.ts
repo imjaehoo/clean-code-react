@@ -32,9 +32,14 @@ export const strategyPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: 'Bad: Complex If-Else Chain',
-        description: 'Payment processing with nested conditionals - hard to maintain and extend',
-        code: `// ❌ BAD: Long if-else chain that's hard to maintain
+        title: 'Payment Processing Strategies',
+        description: 'Comparing if-else chains vs strategy pattern for payment processing',
+        comparison: {
+          bad: {
+            title: 'Complex If-Else Chain',
+            description:
+              'Payment processing with nested conditionals - hard to maintain and extend',
+            code: `// ❌ BAD: Long if-else chain that's hard to maintain
 const PaymentForm: React.FC<{ paymentType: string }> = ({ paymentType }) => {
   const [amount, setAmount] = useState(0);
   const [details, setDetails] = useState<PaymentDetails>({});
@@ -103,12 +108,12 @@ const PaymentForm: React.FC<{ paymentType: string }> = ({ paymentType }) => {
     </div>
   );
 };`,
-      },
-      {
-        title: 'Good: Strategy Pattern',
-        description:
-          'Clean strategy pattern eliminates if-else chains and makes adding new payment methods easy',
-        code: `// ✅ GOOD: Strategy interface
+          },
+          good: {
+            title: 'Strategy Pattern',
+            description:
+              'Clean strategy pattern eliminates if-else chains and makes adding new payment methods easy',
+            code: `// ✅ GOOD: Strategy interface
 interface PaymentStrategy {
   processPayment(amount: number): Promise<PaymentResult>;
   validatePayment(details: PaymentDetails): boolean;
@@ -211,6 +216,8 @@ const PaymentForm: React.FC<{ paymentType: string }> = ({ paymentType }) => {
     </div>
   );
 };`,
+          },
+        },
       },
     ],
     bestPractices: [

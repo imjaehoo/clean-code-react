@@ -23,7 +23,18 @@ export interface DetailedPatternResponse {
     examples: Array<{
       title: string;
       description: string;
-      code: string;
+      comparison: {
+        bad: {
+          title: string;
+          description: string;
+          code: string;
+        };
+        good: {
+          title: string;
+          description: string;
+          code: string;
+        };
+      };
     }>;
     bestPractices: string[];
     commonMistakes: string[];
@@ -40,7 +51,18 @@ export interface DetailedPatternResponse {
     examples: Array<{
       title: string;
       description: string;
-      code: string;
+      comparison: {
+        bad: {
+          title: string;
+          description: string;
+          code: string;
+        };
+        good: {
+          title: string;
+          description: string;
+          code: string;
+        };
+      };
     }>;
     bestPractices: string[];
     commonMistakes: string[];
@@ -113,11 +135,22 @@ export interface DetailedPattern {
   solution: string;
   benefits: string[];
   drawbacks: string[];
-  examples: {
+  examples: Array<{
     title: string;
     description: string;
-    code: string;
-  }[];
+    comparison: {
+      bad: {
+        title: string;
+        description: string;
+        code: string;
+      };
+      good: {
+        title: string;
+        description: string;
+        code: string;
+      };
+    };
+  }>;
   bestPractices: string[];
   commonMistakes: string[];
   relatedPatterns: string[];

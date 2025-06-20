@@ -31,9 +31,14 @@ export const renderPropsPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: 'Bad: Tight Coupling',
-        description: 'Component tightly coupled to specific UI implementation',
-        code: `// ❌ BAD: MouseTracker is tied to specific rendering
+        title: 'Mouse Tracking Logic Reusability',
+        description: 'Comparing tightly coupled components vs flexible render props pattern',
+        comparison: {
+          bad: {
+            title: 'Tight Coupling',
+            description:
+              'Component tightly coupled to specific UI implementation - logic duplication',
+            code: `// ❌ BAD: MouseTracker is tied to specific rendering
 function MouseTracker() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   
@@ -76,11 +81,12 @@ function MouseFollower() {
     </div>
   );
 }`,
-      },
-      {
-        title: 'Good: Flexible with Render Props',
-        description: 'Reusable logic with flexible rendering through render props',
-        code: `// ✅ GOOD: Mouse component with render prop
+          },
+          good: {
+            title: 'Flexible with Render Props',
+            description:
+              'Reusable logic with flexible rendering through render props - no duplication',
+            code: `// ✅ GOOD: Mouse component with render prop
 function Mouse({ children }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   
@@ -143,6 +149,8 @@ function App() {
     </div>
   );
 }`,
+          },
+        },
       },
     ],
     bestPractices: [
