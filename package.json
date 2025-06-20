@@ -15,8 +15,16 @@
     "lint": "eslint src --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:imports": "prettier --write \"src/**/*.ts\" --plugin=@trivago/prettier-plugin-sort-imports",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm run build",
+    "version": "npm run build && git add -A dist"
   },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "keywords": [
     "mcp",
     "react",

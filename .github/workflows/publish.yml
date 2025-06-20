@@ -1,13 +1,12 @@
-name: Dependabot Auto Merge
+name: Publish to NPM
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  release:
+    types: [published]
 
 jobs:
-  auto-merge:
+  publish:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
 
     steps:
       - name: Checkout code
@@ -17,6 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
       - name: Install dependencies
@@ -28,9 +28,7 @@ jobs:
           npm run lint
           npm run build
 
-      - name: Enable auto-merge for Dependabot PRs
-        if: success()
-        run: gh pr merge --auto --merge "$PR_URL"
+      - name: Publish to NPM
+        run: npm publish
         env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
