@@ -1,11 +1,10 @@
 # Clean Code React MCP Server
 
 A Model Context Protocol (MCP) server that provides comprehensive React and TypeScript pattern guidance for AI coding assistants.
-Discover proven patterns, see bad vs good examples, and learn when to apply each pattern.
 
 ## Overview
 
-Clean Code React helps developers write better React/TypeScript code by providing:
+Clean Code React helps AI coding assistants writeN better React/TypeScript code by providing:
 
 - **Essential Patterns**: From basic Container/Presentational to advanced Builder and Factory patterns
 - **Bad vs Good Examples**: Compare problematic code with improved solutions
@@ -71,6 +70,7 @@ code --add-mcp '{"name":"clean-code-react","command":"npx","args":["clean-code-r
 
 - **`get_builder_pattern`** - Construct complex objects step by step
 - **`get_factory_pattern`** - Create objects without specifying exact classes
+- **`get_strategy_pattern`** - Define algorithms and make them interchangeable
 
 Each pattern tool provides:
 
@@ -78,6 +78,28 @@ Each pattern tool provides:
 - Bad vs good code examples
 - Best practices and common mistakes
 - Related patterns and further reading
+
+## Best Practices
+
+### Using Clean Code React with AI Coding Assistants
+
+1. **Refactor Existing Components**
+
+   ```text
+   "Refactor settings page using clean-code-react mcp"
+   ```
+
+2. **Design New Features**
+
+   ```text
+   "I need to build [feature description]. Implement using clean-code-react mcp."
+   ```
+
+3. **Code Reviews**
+
+   ```text
+   "Review this code using clean-code-react mcp"
+   ```
 
 ## Development
 

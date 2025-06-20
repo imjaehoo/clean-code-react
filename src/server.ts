@@ -33,7 +33,7 @@ export function createServer() {
   const server = new Server(
     {
       name: 'clean-code-react',
-      version: '0.1.1',
+      version: '0.1.2',
     },
     {
       capabilities: {
