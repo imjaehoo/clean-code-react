@@ -32,9 +32,14 @@ export const adapterPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: '❌ BAD: Direct External API Coupling',
-        description: 'Components directly using external APIs with different formats',
-        code: `// ❌ BAD: Component directly handles different API formats
+        title: 'Payment Provider Integration',
+        description: 'Comparing direct API coupling vs unified adapter interface',
+        comparison: {
+          bad: {
+            title: 'Direct External API Coupling',
+            description:
+              'Component directly handles different API formats leading to tight coupling',
+            code: `// ❌ BAD: Component directly handles different API formats
 function PaymentProcessor({ provider, amount, currency }: PaymentProps) {
   const [processing, setProcessing] = useState(false);
   const [result, setResult] = useState<any>(null);
@@ -153,11 +158,11 @@ function PaymentProcessor({ provider, amount, currency }: PaymentProps) {
 // - Business logic is mixed with integration details
 // - Very difficult to test individual provider integrations
 // - Code becomes unmanageable as more providers are added`,
-      },
-      {
-        title: '✅ GOOD: Adapter Pattern for Unified Interface',
-        description: 'Adapters provide consistent interface across different payment providers',
-        code: `// ✅ GOOD: Define consistent interface for all payment providers
+          },
+          good: {
+            title: 'Adapter Pattern for Unified Interface',
+            description: 'Adapters provide consistent interface across different payment providers',
+            code: `// ✅ GOOD: Define consistent interface for all payment providers
 interface PaymentProvider {
   charge(amount: number, currency: string, source: string): Promise<PaymentResult>;
   refund(chargeId: string, amount?: number): Promise<RefundResult>;
@@ -408,11 +413,140 @@ function PaymentProcessor({ provider, amount, currency }: PaymentProps) {
 // - Consistent error handling across all providers
 // - Each adapter handles its provider's specific quirks
 // - Much easier to test individual adapters in isolation`,
+          },
+        },
       },
       {
-        title: '✅ GOOD: API Response Transformation Adapter',
-        description: 'Adapters normalize different external API response formats',
-        code: `// ✅ GOOD: Different external APIs, unified internal format
+        title: 'API Response Transformation',
+        description:
+          'Comparing direct API usage vs adapter pattern for normalizing different external API formats',
+        comparison: {
+          bad: {
+            title: 'Direct API Usage with Format Handling',
+            description:
+              'Components directly handle different API response formats causing code duplication and maintenance issues',
+            code: `// ❌ BAD: Components directly handle different API formats
+function UserProfile({ provider, username }: { 
+  provider: 'github' | 'gitlab';
+  username: string;
+}) {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        let userData;
+        
+        if (provider === 'github') {
+          // Direct GitHub API call
+          const response = await fetch(\`https://api.github.com/users/\${username}\`);
+          const githubUser = await response.json();
+          
+          // Manual transformation inline
+          userData = {
+            id: \`github-\${githubUser.id}\`,
+            username: githubUser.login,
+            displayName: githubUser.name || githubUser.login,
+            avatarUrl: githubUser.avatar_url,
+            profileUrl: githubUser.html_url,
+            email: githubUser.email,
+            bio: githubUser.bio,
+            location: githubUser.location,
+            company: githubUser.company,
+            website: githubUser.blog ? (githubUser.blog.startsWith('http') ? githubUser.blog : \`https://\${githubUser.blog}\`) : null,
+            repositories: githubUser.public_repos,
+            followers: githubUser.followers,
+            following: githubUser.following,
+            joinedAt: new Date(githubUser.created_at),
+          };
+          
+        } else if (provider === 'gitlab') {
+          // Direct GitLab API call
+          const response = await fetch(\`https://gitlab.com/api/v4/users?username=\${username}\`);
+          const users = await response.json();
+          
+          if (users.length === 0) {
+            throw new Error('User not found');
+          }
+          
+          const gitlabUser = users[0];
+          
+          // Manual transformation inline (different format!)
+          userData = {
+            id: \`gitlab-\${gitlabUser.id}\`,
+            username: gitlabUser.username,
+            displayName: gitlabUser.name,
+            avatarUrl: gitlabUser.avatar_url,
+            profileUrl: gitlabUser.web_url,
+            email: gitlabUser.public_email || null,
+            bio: gitlabUser.bio || null,
+            location: gitlabUser.location || null,
+            company: gitlabUser.organization || null,
+            website: gitlabUser.website_url || null,
+            repositories: 0, // GitLab doesn't provide this easily
+            followers: gitlabUser.followers || 0,
+            following: gitlabUser.following || 0,
+            joinedAt: new Date(gitlabUser.created_at),
+          };
+        }
+        
+        setUser(userData);
+        
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchUser();
+  }, [provider, username]);
+  
+  if (loading) return <div>Loading user profile...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!user) return <div>User not found</div>;
+  
+  return (
+    <div className="user-profile">
+      <img src={user.avatarUrl} alt={user.displayName} />
+      <h1>{user.displayName}</h1>
+      <p>@{user.username}</p>
+      {user.bio && <p>{user.bio}</p>}
+      {user.location && <p>📍 {user.location}</p>}
+      {user.company && <p>🏢 {user.company}</p>}
+      {user.website && (
+        <p>🔗 <a href={user.website}>{user.website}</a></p>
+      )}
+      
+      <div className="stats">
+        <span>Repositories: {user.repositories}</span>
+        <span>Followers: {user.followers}</span>
+        <span>Following: {user.following}</span>
+      </div>
+      
+      <p>Joined: {user.joinedAt.toLocaleDateString()}</p>
+    </div>
+  );
+}
+
+// Problems:
+// - Transformation logic is scattered throughout components
+// - Code duplication when multiple components need same API data
+// - Hard to maintain when API formats change
+// - No consistent error handling across different APIs
+// - Difficult to test API integration separately from UI
+// - Adding new APIs requires updating all consuming components`,
+          },
+          good: {
+            title: 'API Response Transformation Adapter',
+            description:
+              'Adapters normalize different external API response formats into consistent internal format',
+            code: `// ✅ GOOD: Different external APIs, unified internal format
 interface User {
   id: string;
   username: string;
@@ -635,7 +769,17 @@ function UserProfile({ provider, username }: {
       <p>Joined: {user.joinedAt.toLocaleDateString()}</p>
     </div>
   );
-}`,
+}
+
+// Benefits:
+// - Consistent data format across the app
+// - Easy to switch between different services
+// - Centralized transformation logic
+// - Clean separation of concerns
+// - Testable adapters in isolation
+// - Component doesn't need to know about API specifics`,
+          },
+        },
       },
     ],
     bestPractices: [

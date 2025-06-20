@@ -32,9 +32,15 @@ export const higherOrderComponentPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: '❌ BAD: Duplicated Logic Across Components',
-        description: 'Components with repeated authentication and loading logic',
-        code: `// ❌ BAD: Every component handles auth and loading separately
+        title: 'Authentication Logic Implementation',
+        description:
+          'Comparing duplicated authentication logic vs HOC pattern for shared cross-cutting concerns',
+        comparison: {
+          bad: {
+            title: 'Duplicated Logic Across Components',
+            description:
+              'Components with repeated authentication and loading logic - hard to maintain and extend',
+            code: `// ❌ BAD: Every component handles auth and loading separately
 function Dashboard() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
@@ -107,11 +113,12 @@ function Profile() {
 // - Hard to maintain and update
 // - Easy to forget auth checks in new components
 // - Inconsistent behavior across components`,
-      },
-      {
-        title: '✅ GOOD: HOC for Shared Cross-Cutting Concerns',
-        description: 'HOC that provides authentication and loading logic to multiple components',
-        code: `// ✅ GOOD: HOC handles auth and loading logic once
+          },
+          good: {
+            title: 'HOC for Shared Cross-Cutting Concerns',
+            description:
+              'HOC that provides authentication and loading logic to multiple components',
+            code: `// ✅ GOOD: HOC handles auth and loading logic once
 function withAuth(WrappedComponent) {
   // Set display name for debugging
   const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
@@ -195,11 +202,69 @@ const AuthenticatedProfile = withAuth(Profile);
 // - Components focus on their primary responsibility
 // - Consistent behavior across the application
 // - Easy to add new authenticated routes`,
+          },
+        },
       },
       {
-        title: '✅ GOOD: Composable HOCs with TypeScript',
-        description: 'Type-safe HOCs that can be composed together',
-        code: `// ✅ GOOD: Well-typed composable HOCs
+        title: 'Composable HOCs with TypeScript',
+        description:
+          'Comparing basic HOC implementation vs type-safe composable HOCs for complex scenarios',
+        comparison: {
+          bad: {
+            title: 'Basic HOC without TypeScript',
+            description: 'Simple HOC without proper typing or composition support',
+            code: `// ❌ BAD: Basic HOC without proper typing
+function withEnhancements(WrappedComponent) {
+  return function EnhancedComponent(props) {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    
+    // Mix all enhancements in one HOC - hard to reuse
+    useEffect(() => {
+      setLoading(true);
+      // Some loading logic
+      setTimeout(() => setLoading(false), 1000);
+    }, []);
+    
+    useEffect(() => {
+      // Some analytics tracking
+      console.log('Component mounted');
+    }, []);
+    
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+    
+    // Props not properly typed
+    return <WrappedComponent {...props} />;
+  };
+}
+
+// No type safety
+const EnhancedUserList = withEnhancements(UserList);
+
+// Usage without proper prop types
+function App() {
+  return (
+    <EnhancedUserList 
+      users={[]} 
+      onSelectUser={() => {}} 
+      // TypeScript can't help with missing props
+    />
+  );
+}
+
+// Problems:
+// - No TypeScript support
+// - Mixed concerns in single HOC
+// - Hard to reuse individual enhancements
+// - No prop validation
+// - Difficult to debug and maintain`,
+          },
+          good: {
+            title: 'Type-Safe Composable HOCs',
+            description:
+              'Well-typed HOCs that can be composed together for multiple cross-cutting concerns',
+            code: `// ✅ GOOD: Well-typed composable HOCs
 interface WithLoadingProps {
   loading?: boolean;
 }
@@ -286,7 +351,7 @@ function withAnalytics<P extends object>(
   };
 }
 
-// Base component
+// Base component with proper typing
 interface UserListProps {
   users: User[];
   onSelectUser: (user: User) => void;
@@ -304,14 +369,14 @@ function UserList({ users, onSelectUser }: UserListProps) {
   );
 }
 
-// Compose multiple HOCs
+// Compose multiple HOCs - order matters!
 const EnhancedUserList = withAnalytics(
   withErrorBoundary(
     withLoading(UserList)
   )
 );
 
-// Usage with all enhanced features
+// Type-safe usage with all enhanced features
 function App() {
   const { users, loading, error } = useUsers();
   
@@ -324,7 +389,16 @@ function App() {
       onSelectUser={handleUserSelect}
     />
   );
-}`,
+}
+
+// Benefits:
+// - Full TypeScript support with proper prop types
+// - Composable and reusable individual HOCs
+// - Clear separation of concerns
+// - Easy to test each HOC individually
+// - Better debugging with display names`,
+          },
+        },
       },
     ],
     bestPractices: [

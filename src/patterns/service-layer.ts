@@ -32,9 +32,14 @@ export const serviceLayerPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: '❌ BAD: Business Logic Mixed with UI',
-        description: 'Components handling API calls and business logic directly',
-        code: `// ❌ BAD: Component doing everything - API calls, data transformation, business logic
+        title: 'User Management with Service Layer',
+        description:
+          'Comparing components with mixed business logic vs clean service layer separation',
+        comparison: {
+          bad: {
+            title: 'Business Logic Mixed with UI',
+            description: 'Components handling API calls and business logic directly',
+            code: `// ❌ BAD: Component doing everything - API calls, data transformation, business logic
 function UserManagement() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
@@ -173,11 +178,11 @@ function UserManagement() {
 // - Error handling is inconsistent
 // - No caching or optimization
 // - Hard to maintain and debug`,
-      },
-      {
-        title: '✅ GOOD: Clean Service Layer Separation',
-        description: 'Business logic and API calls abstracted into service layer',
-        code: `// ✅ GOOD: Service layer handles all business logic and API calls
+          },
+          good: {
+            title: 'Clean Service Layer Separation',
+            description: 'Business logic and API calls abstracted into service layer',
+            code: `// ✅ GOOD: Service layer handles all business logic and API calls
 class UserService {
   private baseUrl = '/api/users';
   private cache = new Map<string, any>();
@@ -417,6 +422,8 @@ function UserManagement() {
 // - Consistent error handling
 // - Built-in caching and optimization
 // - Easy to maintain and extend`,
+          },
+        },
       },
     ],
     bestPractices: [

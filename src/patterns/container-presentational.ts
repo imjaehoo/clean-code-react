@@ -30,9 +30,13 @@ export const containerPresentationalPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: 'Bad: Mixed Concerns',
-        description: 'Component mixing data logic with presentation - hard to test and reuse',
-        code: `// ❌ BAD: Everything mixed together
+        title: 'User List Implementation',
+        description: 'Comparing mixed concerns vs separated container/presentational components',
+        comparison: {
+          bad: {
+            title: 'Mixed Concerns',
+            description: 'Component mixing data logic with presentation - hard to test and reuse',
+            code: `// ❌ BAD: Everything mixed together
 function UserList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,11 +77,11 @@ function UserList() {
     </div>
   );
 }`,
-      },
-      {
-        title: 'Good: Separated Concerns',
-        description: 'Clear separation between data logic and presentation',
-        code: `// ✅ GOOD: Container handles data
+          },
+          good: {
+            title: 'Separated Concerns',
+            description: 'Clear separation between data logic and presentation',
+            code: `// ✅ GOOD: Container handles data
 function UserListContainer() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -138,6 +142,8 @@ function UserCard({ user, onDelete }) {
     </div>
   );
 }`,
+          },
+        },
       },
     ],
     bestPractices: [

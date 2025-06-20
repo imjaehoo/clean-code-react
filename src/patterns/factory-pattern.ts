@@ -32,9 +32,13 @@ export const factoryPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: 'Bad: Direct Instantiation Everywhere',
-        description: 'Creation logic scattered throughout components with tight coupling',
-        code: `// ❌ BAD: Direct instantiation and scattered creation logic
+        title: 'Object Creation Patterns',
+        description: 'Comparing scattered creation logic with centralized factory patterns',
+        comparison: {
+          bad: {
+            title: 'Direct Instantiation Everywhere',
+            description: 'Creation logic scattered throughout components with tight coupling',
+            code: `// ❌ BAD: Direct instantiation and scattered creation logic
 
 // Different notification types created directly in components
 function NotificationContainer() {
@@ -156,11 +160,11 @@ function CreateUserForm() {
 
   // This gets repeated for every form...
 }`,
-      },
-      {
-        title: 'Good: Factory Pattern Implementation',
-        description: 'Centralized creation logic with factory functions and classes',
-        code: `// ✅ GOOD: Factory pattern for clean object creation
+          },
+          good: {
+            title: 'Factory Pattern Implementation',
+            description: 'Centralized creation logic with factory functions and classes',
+            code: `// ✅ GOOD: Factory pattern for clean object creation
 
 // Notification Factory
 interface Notification {
@@ -436,6 +440,8 @@ function CreateUserForm() {
     </form>
   );
 }`,
+          },
+        },
       },
     ],
     bestPractices: [

@@ -31,9 +31,13 @@ export const dependencyInjectionPattern: PatternDefinition = {
     ],
     examples: [
       {
-        title: '❌ BAD: Hard-Coded Dependencies',
-        description: 'Components tightly coupled to specific implementations',
-        code: `// ❌ BAD: Component directly imports and uses fetch
+        title: 'Prop-based Dependency Injection',
+        description: 'Comparing hard-coded dependencies with prop-based dependency injection',
+        comparison: {
+          bad: {
+            title: 'Hard-Coded Dependencies',
+            description: 'Components tightly coupled to specific implementations',
+            code: `// ❌ BAD: Component directly imports and uses fetch
 function UserList() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
@@ -112,11 +116,11 @@ function UserList() {
 // - Component knows too much about API details
 // - No way to mock or stub external dependencies
 // - Tight coupling makes component hard to reuse`,
-      },
-      {
-        title: '✅ GOOD: Dependency Injection with Interfaces',
-        description: 'Flexible, testable components using dependency injection',
-        code: `// ✅ GOOD: Define clear interfaces for dependencies
+          },
+          good: {
+            title: 'Dependency Injection with Interfaces',
+            description: 'Flexible, testable components using dependency injection',
+            code: `// ✅ GOOD: Define clear interfaces for dependencies
 interface UserService {
   getUsers(): Promise<User[]>;
   createUser(user: Partial<User>): Promise<User>;
@@ -272,11 +276,100 @@ function TestApp() {
 // - Can switch between different API implementations
 // - Component focused on UI logic, not API details
 // - Flexible and reusable across different environments`,
+          },
+        },
       },
       {
-        title: '✅ GOOD: Context-Based Dependency Injection',
-        description: 'Using React Context for app-wide dependency injection',
-        code: `// ✅ GOOD: Context-based DI for app-wide services
+        title: 'Context-based Dependency Injection',
+        description: 'Comparing prop drilling with context-based dependency injection',
+        comparison: {
+          bad: {
+            title: 'Prop Drilling Dependencies',
+            description: 'Passing services through multiple component layers',
+            code: `// ❌ BAD: Prop drilling services through component tree
+function App() {
+  const userService = new HttpUserService();
+  const notificationService = new ToastNotificationService();
+  const analyticsService = new GoogleAnalyticsService();
+  
+  return (
+    <Router>
+      <Routes>
+        <Route 
+          path="/users" 
+          element={
+            <UserPage 
+              userService={userService}
+              notificationService={notificationService}
+              analyticsService={analyticsService}
+            />
+          } 
+        />
+        <Route 
+          path="/profile" 
+          element={
+            <ProfilePage 
+              userService={userService}
+              notificationService={notificationService}
+              analyticsService={analyticsService}
+            />
+          } 
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+// Every component needs to accept and pass down services
+function UserPage({ userService, notificationService, analyticsService }) {
+  return (
+    <div>
+      <Header 
+        analyticsService={analyticsService}
+        notificationService={notificationService}
+      />
+      <UserList 
+        userService={userService}
+        notificationService={notificationService}
+        analyticsService={analyticsService}
+      />
+      <UserForm 
+        userService={userService}
+        notificationService={notificationService}
+      />
+    </div>
+  );
+}
+
+function Header({ analyticsService, notificationService }) {
+  const handleClick = () => {
+    analyticsService.track('header_click');
+    notificationService.showSuccess('Navigation clicked');
+  };
+  
+  return <nav onClick={handleClick}>Navigation</nav>;
+}
+
+function UserList({ userService, notificationService, analyticsService }) {
+  // Component implementation...
+  const handleUserClick = (userId) => {
+    analyticsService.track('user_clicked', { userId });
+  };
+  
+  // More implementation...
+}
+
+// Problems:
+// - Services must be passed through every component layer
+// - Components that don't use services still need to accept them
+// - Refactoring component tree requires updating many prop interfaces
+// - Testing requires mocking services at every level
+// - Adding new services requires updating many component signatures`,
+          },
+          good: {
+            title: 'Context-Based Dependency Injection',
+            description: 'Using React Context for app-wide dependency injection',
+            code: `// ✅ GOOD: Context-based DI for app-wide services
 interface AppServices {
   userService: UserService;
   notificationService: NotificationService;
@@ -385,6 +478,8 @@ function TestServicesProvider({ children }: { children: React.ReactNode }) {
     </ServicesContext.Provider>
   );
 }`,
+          },
+        },
       },
     ],
     bestPractices: [
