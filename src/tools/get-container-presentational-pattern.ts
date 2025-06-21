@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { getDetailedPattern } from '../patterns/index.js';
-import type { DetailedPatternResponse, ErrorResponse } from '../types/index.js';
+import type { DetailedPatternResponse } from '../types/index.js';
 
 export const getContainerPresentationalPatternTool: Tool = {
   name: 'get_container_presentational_pattern',
@@ -16,9 +16,7 @@ export const getContainerPresentationalPatternTool: Tool = {
   },
 };
 
-export async function handleGetContainerPresentationalPattern(): Promise<
-  DetailedPatternResponse | ErrorResponse
-> {
+export function handleGetContainerPresentationalPattern(): DetailedPatternResponse {
   const pattern = getDetailedPattern('container-presentational');
   assert(pattern, 'Pattern not found');
   return { pattern };

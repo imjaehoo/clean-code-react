@@ -76,10 +76,6 @@ export interface DetailedPatternResponse {
   };
 }
 
-export interface ErrorResponse {
-  error: string;
-}
-
 export interface QualityChecklistItem {
   id: string;
   question: string;

@@ -72,7 +72,11 @@ code --add-mcp '{"name":"clean-code-react","command":"npx","args":["clean-code-r
 - **`get_factory_pattern`** - Create objects without specifying exact classes
 - **`get_strategy_pattern`** - Define algorithms and make them interchangeable
 
-Each pattern tool provides:
+### Code Quality Fundamentals
+
+- **`get_code_quality_fundamentals`** - Four principles of writing good code: Readability, Predictability, Cohesion, and Coupling (based on [Frontend Fundamentals](https://frontend-fundamentals.com/code-quality/en/code/))
+
+Each tool provides:
 
 - Comprehensive description and use cases
 - Bad vs good code examples
