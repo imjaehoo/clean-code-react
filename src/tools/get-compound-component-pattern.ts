@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { getDetailedPattern } from '../patterns/index.js';
-import type { DetailedPatternResponse, ErrorResponse } from '../types/index.js';
+import type { DetailedPatternResponse } from '../types/index.js';
 
 export const getCompoundComponentPatternTool: Tool = {
   name: 'get_compound_component_pattern',
@@ -16,9 +16,7 @@ export const getCompoundComponentPatternTool: Tool = {
   },
 };
 
-export async function handleGetCompoundComponentPattern(): Promise<
-  DetailedPatternResponse | ErrorResponse
-> {
+export function handleGetCompoundComponentPattern(): DetailedPatternResponse {
   const pattern = getDetailedPattern('compound-component');
   assert(pattern, 'Pattern not found');
   return { pattern };

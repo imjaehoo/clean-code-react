@@ -1,10 +1,10 @@
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 
-import { createValidatedHandler } from './adapters/mcp.js';
 import {
   getAdapterPatternTool,
   getBuilderPatternTool,
+  getCodeQualityFundamentalsTool,
   getCompoundComponentPatternTool,
   getContainerPresentationalPatternTool,
   getDeclarativeProgrammingPatternTool,
@@ -17,6 +17,7 @@ import {
   getServiceLayerPatternTool,
   handleGetAdapterPattern,
   handleGetBuilderPattern,
+  handleGetCodeQualityFundamentals,
   handleGetCompoundComponentPattern,
   handleGetContainerPresentationalPattern,
   handleGetDeclarativeProgrammingPattern,
@@ -50,40 +51,11 @@ export function createServer() {
           get_prop_drilling_solutions_pattern: getPropDrillingSolutionsPatternTool,
           get_builder_pattern: getBuilderPatternTool,
           get_factory_pattern: getFactoryPatternTool,
+          get_code_quality_fundamentals: getCodeQualityFundamentalsTool,
         },
       },
     },
   );
-
-  const toolHandlers = new Map<string, (args: unknown) => Promise<unknown>>([
-    ['get_patterns', createValidatedHandler(handleGetPatterns)],
-    [
-      'get_container_presentational_pattern',
-      createValidatedHandler(handleGetContainerPresentationalPattern),
-    ],
-    ['get_render_props_pattern', createValidatedHandler(handleGetRenderPropsPattern)],
-    ['get_compound_component_pattern', createValidatedHandler(handleGetCompoundComponentPattern)],
-    [
-      'get_higher_order_component_pattern',
-      createValidatedHandler(handleGetHigherOrderComponentPattern),
-    ],
-    [
-      'get_dependency_injection_pattern',
-      createValidatedHandler(handleGetDependencyInjectionPattern),
-    ],
-    ['get_service_layer_pattern', createValidatedHandler(handleGetServiceLayerPattern)],
-    ['get_adapter_pattern', createValidatedHandler(handleGetAdapterPattern)],
-    [
-      'get_declarative_programming_pattern',
-      createValidatedHandler(handleGetDeclarativeProgrammingPattern),
-    ],
-    [
-      'get_prop_drilling_solutions_pattern',
-      createValidatedHandler(handleGetPropDrillingSolutionsPattern),
-    ],
-    ['get_builder_pattern', createValidatedHandler(handleGetBuilderPattern)],
-    ['get_factory_pattern', createValidatedHandler(handleGetFactoryPattern)],
-  ]);
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
@@ -100,12 +72,29 @@ export function createServer() {
         getPropDrillingSolutionsPatternTool,
         getBuilderPatternTool,
         getFactoryPatternTool,
+        getCodeQualityFundamentalsTool,
       ],
     };
   });
 
+  const toolHandlers = new Map<string, () => unknown>([
+    ['get_patterns', handleGetPatterns],
+    ['get_container_presentational_pattern', handleGetContainerPresentationalPattern],
+    ['get_render_props_pattern', handleGetRenderPropsPattern],
+    ['get_compound_component_pattern', handleGetCompoundComponentPattern],
+    ['get_higher_order_component_pattern', handleGetHigherOrderComponentPattern],
+    ['get_dependency_injection_pattern', handleGetDependencyInjectionPattern],
+    ['get_service_layer_pattern', handleGetServiceLayerPattern],
+    ['get_adapter_pattern', handleGetAdapterPattern],
+    ['get_declarative_programming_pattern', handleGetDeclarativeProgrammingPattern],
+    ['get_prop_drilling_solutions_pattern', handleGetPropDrillingSolutionsPattern],
+    ['get_builder_pattern', handleGetBuilderPattern],
+    ['get_factory_pattern', handleGetFactoryPattern],
+    ['get_code_quality_fundamentals', handleGetCodeQualityFundamentals],
+  ]);
+
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    const { name, arguments: args } = request.params;
+    const { name } = request.params;
 
     const handler = toolHandlers.get(name);
     if (!handler) {
@@ -113,7 +102,7 @@ export function createServer() {
     }
 
     try {
-      const result = await handler(args ?? {});
+      const result = handler();
       return {
         content: [
           {

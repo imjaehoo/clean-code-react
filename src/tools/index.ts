@@ -35,3 +35,7 @@ export {
 } from './get-prop-drilling-solutions-pattern.js';
 export { getBuilderPatternTool, handleGetBuilderPattern } from './get-builder-pattern.js';
 export { getFactoryPatternTool, handleGetFactoryPattern } from './get-factory-pattern.js';
+export {
+  getCodeQualityFundamentalsTool,
+  handleGetCodeQualityFundamentals,
+} from './get-code-quality-fundamentals.js';

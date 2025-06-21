@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { getDetailedPattern } from '../patterns/index.js';
-import type { DetailedPatternResponse, ErrorResponse } from '../types/index.js';
+import type { DetailedPatternResponse } from '../types/index.js';
 
 export const getPropDrillingSolutionsPatternTool: Tool = {
   name: 'get_prop_drilling_solutions_pattern',
@@ -16,9 +16,7 @@ export const getPropDrillingSolutionsPatternTool: Tool = {
   },
 };
 
-export async function handleGetPropDrillingSolutionsPattern(): Promise<
-  DetailedPatternResponse | ErrorResponse
-> {
+export function handleGetPropDrillingSolutionsPattern(): DetailedPatternResponse {
   const pattern = getDetailedPattern('prop-drilling-solutions');
   assert(pattern, 'Pattern not found');
   return { pattern };

@@ -16,7 +16,7 @@ export const getPatternsTool: Tool = {
   },
 };
 
-export async function handleGetPatterns(): Promise<PatternOverviewResponse> {
+export function handleGetPatterns(): PatternOverviewResponse {
   const patterns = getAllPatternOverviews();
 
   return {

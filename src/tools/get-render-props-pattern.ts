@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { getDetailedPattern } from '../patterns/index.js';
-import type { DetailedPatternResponse, ErrorResponse } from '../types/index.js';
+import type { DetailedPatternResponse } from '../types/index.js';
 
 export const getRenderPropsPatternTool: Tool = {
   name: 'get_render_props_pattern',
@@ -16,9 +16,7 @@ export const getRenderPropsPatternTool: Tool = {
   },
 };
 
-export async function handleGetRenderPropsPattern(): Promise<
-  DetailedPatternResponse | ErrorResponse
-> {
+export function handleGetRenderPropsPattern(): DetailedPatternResponse {
   const pattern = getDetailedPattern('render-props');
   assert(pattern, 'Pattern not found');
   return { pattern };

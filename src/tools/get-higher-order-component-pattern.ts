@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 import { getDetailedPattern } from '../patterns/index.js';
-import type { DetailedPatternResponse, ErrorResponse } from '../types/index.js';
+import type { DetailedPatternResponse } from '../types/index.js';
 
 export const getHigherOrderComponentPatternTool: Tool = {
   name: 'get_higher_order_component_pattern',
@@ -16,9 +16,7 @@ export const getHigherOrderComponentPatternTool: Tool = {
   },
 };
 
-export async function handleGetHigherOrderComponentPattern(): Promise<
-  DetailedPatternResponse | ErrorResponse
-> {
+export function handleGetHigherOrderComponentPattern(): DetailedPatternResponse {
   const pattern = getDetailedPattern('higher-order-component');
   assert(pattern, 'Pattern not found');
   return { pattern };
