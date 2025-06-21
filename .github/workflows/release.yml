@@ -2,54 +2,45 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
-
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'npm'
+          node-version: '18'
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run type checking
-        run: npm run typecheck
+      - name: Lint and typecheck
+        run: |
+          npm run lint
+          npm run typecheck
 
-      - name: Run linting
-        run: npm run lint
-
-      - name: Build project
+      - name: Build
         run: npm run build
 
-      - name: Create Release
-        uses: actions/create-release@v1
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            ## Changes
-
-            See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
-
-            ## Installation
-
-            ```bash
-            git clone https://github.com/imjaehoo/clean-code-react.git
-            cd clean-code-react
-            npm install
-            npm run build
-            ```
-          draft: false
-          prerelease: false
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

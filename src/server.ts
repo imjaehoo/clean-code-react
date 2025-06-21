@@ -29,12 +29,13 @@ import {
   handleGetRenderPropsPattern,
   handleGetServiceLayerPattern,
 } from './tools/index.js';
+import { getVersion } from './version.js';
 
 export function createServer() {
   const server = new Server(
     {
       name: 'clean-code-react',
-      version: '0.1.2',
+      version: getVersion(),
     },
     {
       capabilities: {
