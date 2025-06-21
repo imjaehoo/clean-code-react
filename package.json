@@ -1,7 +1,7 @@
 {
   "name": "clean-code-react",
   "version": "0.1.2",
-  "description": "MCP server providing systematic code quality guidance for AI coding assistants",
+  "description": "MCP server providing code quality guidance for AI coding assistants",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
