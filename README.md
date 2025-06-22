@@ -42,68 +42,66 @@ claude mcp add clean-code-react npx clean-code-react@latest
 code --add-mcp '{"name":"clean-code-react","command":"npx","args":["clean-code-react@latest"]}'
 ```
 
-## Available Tools
+## What You Get
 
-### Pattern Discovery
+This MCP server provides AI coding assistants with access to:
 
-- **`get_patterns`** - Get an overview of all 11 available patterns with descriptions and use cases
+- **Essential React Patterns** - From basic Container/Presentational to advanced Builder and Factory patterns
+- **Code Quality Fundamentals** - Four principles of writing good code: Readability, Predictability, Cohesion, and Coupling
+- **Bad vs Good Examples** - Compare problematic code with improved solutions
+- **Best Practices** - Comprehensive guidance and common mistakes to avoid
+
+## Available Patterns
 
 ### React Patterns
 
-- **`get_container_presentational_pattern`** - Separate data logic from presentation
-- **`get_render_props_pattern`** - Share code between components using render props
-- **`get_compound_component_pattern`** - Create flexible, composable component APIs
-- **`get_higher_order_component_pattern`** - Enhance components with additional functionality
+- **Container/Presentational** - Separate data logic from presentation
+- **Render Props** - Share code between components using render props
+- **Compound Component** - Create flexible, composable component APIs
+- **Higher-Order Component** - Enhance components with additional functionality
 
 ### Architecture Patterns
 
-- **`get_dependency_injection_pattern`** - Manage dependencies and improve testability
-- **`get_service_layer_pattern`** - Organize business logic and external integrations
-- **`get_adapter_pattern`** - Bridge incompatible interfaces
+- **Dependency Injection** - Manage dependencies and improve testability
+- **Service Layer** - Organize business logic and external integrations
+- **Adapter Pattern** - Bridge incompatible interfaces
 
 ### Code Quality Patterns
 
-- **`get_declarative_programming_pattern`** - Write more readable, maintainable code
-- **`get_prop_drilling_solutions_pattern`** - Solve prop drilling with modern techniques
+- **Declarative Programming** - Write more readable, maintainable code
+- **Prop Drilling Solutions** - Solve prop drilling with modern techniques
 
 ### Design Patterns
 
-- **`get_builder_pattern`** - Construct complex objects step by step
-- **`get_factory_pattern`** - Create objects without specifying exact classes
-- **`get_strategy_pattern`** - Define algorithms and make them interchangeable
+- **Builder Pattern** - Construct complex objects step by step
+- **Factory Pattern** - Create objects without specifying exact classes
+- **Strategy Pattern** - Define algorithms and make them interchangeable
 
-### Code Quality Fundamentals
+## How to Use
 
-- **`get_code_quality_fundamentals`** - Four principles of writing good code: Readability, Predictability, Cohesion, and Coupling (based on [Frontend Fundamentals](https://frontend-fundamentals.com/code-quality/en/code/))
+Simply ask your AI coding assistant to use the clean-code-react MCP server when working on React code:
 
-Each tool provides:
+### Examples
 
-- Comprehensive description and use cases
-- Bad vs good code examples
-- Best practices and common mistakes
-- Related patterns and further reading
+**Refactor existing code:**
 
-## Best Practices
+```text
+"Refactor this component using clean-code-react mcp"
+```
 
-### Using Clean Code React with AI Coding Assistants
+**Build new features:**
 
-1. **Refactor Existing Components**
+```text
+"Build a user settings page using clean-code-react mcp"
+```
 
-   ```text
-   "Refactor settings page using clean-code-react mcp"
-   ```
+**Improve code quality:**
 
-2. **Design New Features**
+```text
+"Apply clean-code-react mcp's quality fundamentals to improve this code"
+```
 
-   ```text
-   "I need to build [feature description]. Implement using clean-code-react mcp."
-   ```
-
-3. **Code Reviews**
-
-   ```text
-   "Review this code using clean-code-react mcp"
-   ```
+The AI assistant will automatically discover and apply the most appropriate patterns and principles for your specific use case.
 
 ## Development
 
@@ -146,7 +144,6 @@ This opens a web interface where you can:
 
 ```text
 src/
-├── adapters/        # MCP protocol adapters and type safety wrappers
 ├── patterns/        # Pattern definitions with colocated data
 ├── tools/           # MCP tool implementations
 ├── types/           # TypeScript type definitions
