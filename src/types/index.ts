@@ -3,7 +3,7 @@ export interface PatternOverviewResponse {
     name: string;
     description: string;
     whenToUse: string;
-    toolName: string;
+    patternId: string;
   }>;
   usage: {
     nextStep: string;
@@ -74,48 +74,6 @@ export interface DetailedPatternResponse {
     description: string;
     guidance?: string;
   };
-}
-
-export interface QualityChecklistItem {
-  id: string;
-  question: string;
-  priority: 'high' | 'medium' | 'low';
-  fixToolId: string;
-}
-
-export interface QualityChecklistCategory {
-  name: string;
-  description: string;
-  items: QualityChecklistItem[];
-}
-
-export interface QualityChecklist {
-  version: string;
-  categories: QualityChecklistCategory[];
-}
-
-export interface CodeExample {
-  title: string;
-  description: string;
-  code: string;
-  language: 'typescript' | 'javascript' | 'tsx' | 'jsx';
-}
-
-export interface Pattern {
-  id: string;
-  name: string;
-  description: string;
-  whenToUse: string;
-  howToImplement: string;
-  example: CodeExample;
-  antiPattern?: CodeExample;
-  relatedPatterns?: string[];
-}
-
-export interface ToolResponse<T = unknown> {
-  success: boolean;
-  data?: T;
-  error?: string;
 }
 
 export interface PatternOverview {

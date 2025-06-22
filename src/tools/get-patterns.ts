@@ -24,13 +24,13 @@ export function handleGetPatterns(): PatternOverviewResponse {
       name: pattern.name,
       description: pattern.description,
       whenToUse: pattern.whenToUse,
-      toolName: pattern.toolName,
+      patternId: pattern.id,
     })),
     usage: {
       nextStep:
-        'Choose a pattern that fits your needs and call the corresponding tool(s) for detailed guidance and examples',
+        'Choose pattern(s) that fits your needs and call get_pattern with the patternId for detailed guidance and examples',
       example:
-        "Call 'get_container_presentational_pattern' for detailed Container/Presentational pattern implementation",
+        "Call get_pattern with patternId 'container-presentational' for detailed Container/Presentational pattern implementation",
     },
   };
 }
