@@ -34,15 +34,12 @@ export const PATTERN_REGISTRY: Record<string, PatternDefinition> = {
 };
 
 /**
- * Get all pattern overviews with dynamic ID and toolID
+ * Get all pattern overviews with dynamic ID
  */
-export function getAllPatternOverviews(): Array<
-  PatternOverview & { id: string; toolName: string }
-> {
+export function getAllPatternOverviews(): Array<PatternOverview & { id: string }> {
   return Object.entries(PATTERN_REGISTRY).map(([key, pattern]) => ({
     ...pattern.overview,
     id: key,
-    toolName: `get_${key.replace(/-/g, '_')}_pattern`,
   }));
 }
 
