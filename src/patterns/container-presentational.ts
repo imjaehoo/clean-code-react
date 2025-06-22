@@ -6,7 +6,7 @@ export const containerPresentationalPattern: PatternDefinition = {
     description:
       'A foundational React pattern that separates components into two distinct types: smart containers that handle data, state, and business logic, and dumb presentational components that focus purely on rendering UI. This separation creates cleaner, more maintainable, and testable code by establishing clear boundaries between data management and visual presentation.',
     whenToUse:
-      'Use when you have components mixing data fetching with UI logic, need to reuse UI components with different data sources, want to improve testability by isolating pure UI components, are building complex forms or data-heavy interfaces, have components that are becoming too large and handling multiple responsibilities, or need to share the same UI component across different parts of your application with different data sources.',
+      'Use when you need to reuse UI components with different data sources, want to improve testability by isolating pure UI components, are building complex forms or data-heavy interfaces, have components that are becoming too large and handling multiple responsibilities, or need to share the same UI component across different parts of your application with different data sources.',
   },
   detailed: {
     name: 'Container/Presentational Pattern',
