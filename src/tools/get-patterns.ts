@@ -28,7 +28,7 @@ export function handleGetPatterns(): PatternOverviewResponse {
     })),
     usage: {
       nextStep:
-        'Choose pattern(s) that fits your needs and call get_pattern with the patternId for detailed guidance and examples',
+        'Choose pattern(s) that fits your needs and call get_pattern with the patternId for detailed guidance and examples. Be careful not to over-engineer - start simple and add complexity only when needed.',
       example:
         "Call get_pattern with patternId 'container-presentational' for detailed Container/Presentational pattern implementation",
     },
