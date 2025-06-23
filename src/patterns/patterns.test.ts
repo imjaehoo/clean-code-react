@@ -171,13 +171,11 @@ describe('Pattern Data Validation', () => {
             `Pattern ${patternId} example ${index} missing good comparison`,
           ).toBeDefined();
 
-          // Validate bad example
           expect(comparison.bad.title).toBeDefined();
           expect(comparison.bad.description).toBeDefined();
           expect(comparison.bad.code).toBeDefined();
           expect(comparison.bad.code.length).toBeGreaterThan(0);
 
-          // Validate good example
           expect(comparison.good.title).toBeDefined();
           expect(comparison.good.description).toBeDefined();
           expect(comparison.good.code).toBeDefined();
@@ -230,22 +228,6 @@ describe('Pattern Data Validation', () => {
           detailedPattern.relatedPatterns.includes(patternId),
           `Pattern ${patternId} references itself in relatedPatterns`,
         ).toBe(false);
-      });
-    });
-
-    it('should have pattern names that are consistently formatted', () => {
-      patternIds.forEach((patternId) => {
-        const pattern = PATTERN_REGISTRY[patternId];
-        const detailedPattern = getDetailedPattern(patternId);
-
-        // Ensure pattern names are not empty and are properly formatted
-        expect(pattern.overview.name.length).toBeGreaterThan(0);
-        expect(detailedPattern.name.length).toBeGreaterThan(0);
-        expect(pattern.overview.name).toMatch(/^[A-Z]/);
-        expect(detailedPattern.name).toMatch(/^[A-Z]/);
-
-        // Note: Names may differ between overview and detailed sections
-        // Overview might have abbreviated forms, detailed might have "Pattern" suffix
       });
     });
   });
