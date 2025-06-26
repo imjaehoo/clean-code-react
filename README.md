@@ -4,7 +4,7 @@ A Model Context Protocol (MCP) server that provides comprehensive React and Type
 
 ## Overview
 
-Clean Code React helps AI coding assistants writeN better React/TypeScript code by providing:
+Clean Code React helps AI coding assistants write better React/TypeScript code by providing:
 
 - **Essential Patterns**: From basic Container/Presentational to advanced Builder and Factory patterns
 - **Bad vs Good Examples**: Compare problematic code with improved solutions
@@ -161,6 +161,10 @@ Contributions are welcome! Please:
 4. Ensure all patterns have bad/good examples
 5. Update pattern descriptions and use cases
 6. Submit a pull request
+
+## Acknowledgments
+
+The Code Quality Fundamentals tool is based on the "Four Principles of Writing Good Code" from the [Frontend Fundamentals](https://frontend-fundamentals.com/code-quality/en/code/) project by Viva Republica, Inc (Toss), licensed under MIT License.
 
 ## License
 
